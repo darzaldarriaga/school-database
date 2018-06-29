@@ -2,6 +2,7 @@ package com.darwinsofttech.school.service.schedule;
 
 import com.darwinsofttech.school.repository.schedule.Schedule;
 import com.darwinsofttech.school.repository.schedule.ScheduleRepository;
+import com.darwinsofttech.school.service.utils.NoScheduleMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,13 +36,17 @@ public class ScheduleServiceImpl implements ScheduleService {
     public List<ScheduleResponse> findAll() {
         List<Schedule> schedules = scheduleRepository.findAll();
         return schedules.stream().map(schedule -> {
-            ScheduleResponse scheduleResponse = mapToScheduleResponse();
+
+            ScheduleResponse scheduleResponse =
+                    new ScheduleResponse(
+                            schedule.getId(),
+                            NoScheduleMapper.mapToSubjectResponse(schedule.getSubject()),
+                            NoScheduleMapper.mapToTeacherResponse(schedule.getTeacher()),
+                            NoScheduleMapper.mapToStudentResponses(schedule.getStudents())
+                    );
+
             return scheduleResponse;
         }).collect(Collectors.toList());
-    }
-
-    private ScheduleResponse mapToScheduleResponse() {
-        return null;
     }
 
     @Override
