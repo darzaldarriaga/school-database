@@ -1,6 +1,5 @@
 package com.darwinsofttech.school.service.subject;
 
-import com.darwinsofttech.school.repository.schedule.Schedule;
 import com.darwinsofttech.school.service.schedule.SubjectScheduleResponse;
 
 import java.util.List;
@@ -10,6 +9,15 @@ public class SubjectResponse {
     private String subjectCode;
     private String subjectDescription;
     private List<SubjectScheduleResponse> schedules;
+
+    public SubjectResponse() {
+    }
+
+    public SubjectResponse(int id, String subjectCode, String subjectDescription) {
+        this.id = id;
+        this.subjectCode = subjectCode;
+        this.subjectDescription = subjectDescription;
+    }
 
     public int getId() {
         return id;
