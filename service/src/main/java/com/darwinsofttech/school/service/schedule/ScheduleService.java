@@ -8,6 +8,6 @@ public interface ScheduleService {
     void assignSchedule(int subjectId, int teacherId);
     void updateSchedule(Schedule schedule);
     void removeSchedule(int scheduleId);
-    List<Schedule> searchAll();
-    Schedule searchById(int scheduleId);
+    List<ScheduleResponse> findAll();
+    Schedule findById(int scheduleId);
 }
