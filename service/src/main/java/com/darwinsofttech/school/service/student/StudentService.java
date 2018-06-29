@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface StudentService {
     void save(String lastName, String firstName, String middleName);
-    void update(Student student);
+    void update(StudentRequest studentRequest);
     void remove(int studentId);
     List<StudentResponse> findAll();
-    Student findById(int studentId);
+    StudentResponse findById(int studentId);
 }

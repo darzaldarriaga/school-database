@@ -1,25 +1,10 @@
 package com.darwinsofttech.school.service.student;
 
-import com.darwinsofttech.school.service.schedule.StudentScheduleResponse;
-
-import java.util.List;
-
-public class StudentResponse {
+public class StudentRequest {
     private int id;
     private String lastName;
     private String firstName;
     private String middleName;
-    private List<StudentScheduleResponse> schedules;
-
-    public StudentResponse() {
-    }
-
-    public StudentResponse(int id, String lastName, String firstName, String middleName) {
-        this.id = id;
-        this.lastName = lastName;
-        this.firstName = firstName;
-        this.middleName = middleName;
-    }
 
     public int getId() {
         return id;
@@ -51,13 +36,5 @@ public class StudentResponse {
 
     public void setMiddleName(String middleName) {
         this.middleName = middleName;
-    }
-
-    public List<StudentScheduleResponse> getSchedules() {
-        return schedules;
-    }
-
-    public void setSchedules(List<StudentScheduleResponse> schedules) {
-        this.schedules = schedules;
     }
 }

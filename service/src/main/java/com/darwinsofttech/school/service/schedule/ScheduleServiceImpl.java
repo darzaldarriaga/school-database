@@ -5,6 +5,7 @@ import com.darwinsofttech.school.repository.schedule.ScheduleRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ScheduleServiceImpl implements ScheduleService {
@@ -31,12 +32,20 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
-    public List<Schedule> searchAll() {
-        return scheduleRepository.findAll();
+    public List<ScheduleResponse> findAll() {
+        List<Schedule> schedules = scheduleRepository.findAll();
+        return schedules.stream().map(schedule -> {
+            ScheduleResponse scheduleResponse = mapToScheduleResponse();
+            return scheduleResponse;
+        }).collect(Collectors.toList());
+    }
+
+    private ScheduleResponse mapToScheduleResponse() {
+        return null;
     }
 
     @Override
-    public Schedule searchById(int scheduleId) {
+    public Schedule findById(int scheduleId) {
         return scheduleRepository.findById(scheduleId).get();
     }
 }

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,8 +36,17 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public void update(Student student) {
-        studentRepository.save(student);
+    public void update(StudentRequest studentRequest) {
+        Optional<Student> studentOptional = studentRepository.findById(studentRequest.getId());
+        if(studentOptional.isPresent()) {
+            Student student = studentOptional.get();
+            student.setLastName(studentRequest.getLastName());
+            student.setFirstName(studentRequest.getFirstName());
+            student.setMiddleName(studentRequest.getMiddleName());
+            studentRepository.save(student);
+        } else {
+            throw new IllegalArgumentException("Student does not exist");
+        }
     }
 
     @Override
@@ -94,7 +104,9 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Student findById(int studentId) {
-        return studentRepository.findById(studentId).orElseThrow(() -> new IllegalArgumentException("Student Id not found"));
+    public StudentResponse findById(int studentId) {
+        Student student = studentRepository.findById(studentId).orElseThrow(() -> new IllegalArgumentException("Student Id not found"));
+        StudentResponse studentResponse = mapToStudentResponse(student);
+        return studentResponse;
     }
 }
