@@ -1,13 +1,10 @@
 package com.darwinsofttech.school.service.subject;
 
 import com.darwinsofttech.school.repository.schedule.Schedule;
-import com.darwinsofttech.school.repository.student.Student;
 import com.darwinsofttech.school.repository.subject.Subject;
 import com.darwinsofttech.school.repository.subject.SubjectRepository;
-import com.darwinsofttech.school.repository.teacher.Teacher;
 import com.darwinsofttech.school.service.schedule.SubjectScheduleResponse;
-import com.darwinsofttech.school.service.student.StudentResponseWithoutScheds;
-import com.darwinsofttech.school.service.teacher.TeacherResponseWithoutScheds;
+import com.darwinsofttech.school.service.utils.NoScheduleMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -50,10 +47,7 @@ public class SubjectServiceImpl implements SubjectService {
     }
 
     private SubjectResponse mapToSubjectResponse(Subject subject) {
-        SubjectResponse subjectResponse = new SubjectResponse();
-        subjectResponse.setId(subject.getId());
-        subjectResponse.setSubjectCode(subject.getSubjectCode());
-        subjectResponse.setSubjectDescription(subject.getSubjectDescription());
+        SubjectResponse subjectResponse = new SubjectResponse(subject.getId(), subject.getSubjectCode(), subject.getSubjectDescription());
         return subjectResponse;
     }
 
@@ -62,33 +56,11 @@ public class SubjectServiceImpl implements SubjectService {
         schedules.forEach(schedule -> {
             SubjectScheduleResponse subjectScheduleResponse = new SubjectScheduleResponse();
             subjectScheduleResponse.setId(schedule.getId());
-            subjectScheduleResponse.setTeacher(mapToTeacherResponse(schedule.getTeacher()));
-            subjectScheduleResponse.setStudents(mapToStudentResponses(schedule.getStudents()));
+            subjectScheduleResponse.setTeacher(NoScheduleMapper.mapToTeacherResponse(schedule.getTeacher()));
+            subjectScheduleResponse.setStudents(NoScheduleMapper.mapToStudentResponses(schedule.getStudents()));
             subjectScheduleResponses.add(subjectScheduleResponse);
         });
         return subjectScheduleResponses;
-    }
-
-    private TeacherResponseWithoutScheds mapToTeacherResponse(Teacher teacher) {
-        TeacherResponseWithoutScheds teacherResponse = new TeacherResponseWithoutScheds();
-        teacherResponse.setId(teacher.getId());
-        teacherResponse.setLastName(teacher.getLastName());
-        teacherResponse.setFirstName(teacher.getFirstName());
-        teacherResponse.setMiddleName(teacher.getMiddleName());
-        return teacherResponse;
-    }
-
-    private List<StudentResponseWithoutScheds> mapToStudentResponses(List<Student> students) {
-        List<StudentResponseWithoutScheds> studentResponses = new ArrayList<>();
-        students.forEach(student -> {
-            StudentResponseWithoutScheds studentResponse = new StudentResponseWithoutScheds();
-            studentResponse.setId(student.getId());
-            studentResponse.setLastName(student.getLastName());
-            studentResponse.setFirstName(student.getFirstName());
-            studentResponse.setMiddleName(student.getMiddleName());
-            studentResponses.add(studentResponse);
-        });
-        return studentResponses;
     }
 
     @Override
