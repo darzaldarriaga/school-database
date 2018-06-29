@@ -11,6 +11,16 @@ public class TeacherResponse {
     private String middleName;
     private List<TeacherScheduleResponse> schedules;
 
+    public TeacherResponse() {
+    }
+
+    public TeacherResponse(int id, String lastName, String firstName, String middleName) {
+        this.id = id;
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.middleName = middleName;
+    }
+
     public int getId() {
         return id;
     }
