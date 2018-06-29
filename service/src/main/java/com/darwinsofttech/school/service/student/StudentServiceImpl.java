@@ -3,12 +3,9 @@ package com.darwinsofttech.school.service.student;
 import com.darwinsofttech.school.repository.schedule.Schedule;
 import com.darwinsofttech.school.repository.student.Student;
 import com.darwinsofttech.school.repository.student.StudentRepository;
-import com.darwinsofttech.school.repository.subject.Subject;
-import com.darwinsofttech.school.repository.teacher.Teacher;
 import com.darwinsofttech.school.service.Conversion;
 import com.darwinsofttech.school.service.schedule.StudentScheduleResponse;
-import com.darwinsofttech.school.service.subject.SubjectResponseWithoutScheds;
-import com.darwinsofttech.school.service.teacher.TeacherResponseWithoutScheds;
+import com.darwinsofttech.school.service.utils.NoScheduleMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -60,47 +57,26 @@ public class StudentServiceImpl implements StudentService {
         return students.stream()
                 .map(student -> {
                     StudentResponse studentResponse = mapToStudentResponse(student);
-                    studentResponse.setSchedules(mapToScheduleResponse(student.getSchedules()));
+                    studentResponse.setSchedules(mapToScheduleResponses(student.getSchedules()));
                     return studentResponse;
                 })
                 .collect(Collectors.toList());
     }
 
     private StudentResponse mapToStudentResponse(Student student) {
-        StudentResponse studentResponse = new StudentResponse();
-        studentResponse.setId(student.getId());
-        studentResponse.setLastName(student.getLastName());
-        studentResponse.setFirstName(student.getFirstName());
-        studentResponse.setMiddleName(student.getMiddleName());
+        StudentResponse studentResponse = new StudentResponse(student.getId(), student.getLastName(), student.getFirstName(), student.getMiddleName());
         return studentResponse;
     }
 
-    private List<StudentScheduleResponse> mapToScheduleResponse(List<Schedule> schedules) {
+    private List<StudentScheduleResponse> mapToScheduleResponses(List<Schedule> schedules) {
         List<StudentScheduleResponse> studentScheduleResponses = new ArrayList<>();
         schedules.forEach(schedule -> {
             StudentScheduleResponse studentScheduleResponse = new StudentScheduleResponse();
-            studentScheduleResponse.setSubject(mapToSubjectResponse(schedule.getSubject()));
-            studentScheduleResponse.setTeacher(mapToTeacherResponse(schedule.getTeacher()));
+            studentScheduleResponse.setSubject(NoScheduleMapper.mapToSubjectResponse(schedule.getSubject()));
+            studentScheduleResponse.setTeacher(NoScheduleMapper.mapToTeacherResponse(schedule.getTeacher()));
             studentScheduleResponses.add(studentScheduleResponse);
         });
         return studentScheduleResponses;
-    }
-
-    private SubjectResponseWithoutScheds mapToSubjectResponse(Subject subject) {
-        SubjectResponseWithoutScheds subjectResponse = new SubjectResponseWithoutScheds();
-        subjectResponse.setId(subject.getId());
-        subjectResponse.setSubjectCode(subject.getSubjectCode());
-        subjectResponse.setSubjectDescription(subject.getSubjectDescription());
-        return subjectResponse;
-    }
-
-    private TeacherResponseWithoutScheds mapToTeacherResponse(Teacher teacher) {
-        TeacherResponseWithoutScheds teacherResponse = new TeacherResponseWithoutScheds();
-        teacherResponse.setId(teacher.getId());
-        teacherResponse.setLastName(teacher.getLastName());
-        teacherResponse.setFirstName(teacher.getFirstName());
-        teacherResponse.setMiddleName(teacher.getMiddleName());
-        return teacherResponse;
     }
 
     @Override
