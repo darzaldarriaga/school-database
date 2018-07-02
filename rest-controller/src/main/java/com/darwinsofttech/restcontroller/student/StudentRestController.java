@@ -32,21 +32,19 @@ public class StudentRestController {
 
     @PostMapping("/create")
     public StudentResponse create(@RequestBody StudentRequest studentRequest) {
-        System.out.println(studentRequest);
         studentService.save(studentRequest.getLastName(), studentRequest.getFirstName(), studentRequest.getMiddleName());
         return new StudentResponse();
+    }
+
+    @PostMapping("/update")
+    public StudentResponse update(@RequestBody StudentRequest studentRequest) {
+        studentService.update(studentRequest);
+        return new StudentResponse(studentRequest.getId(), studentRequest.getLastName(),
+                studentRequest.getFirstName(), studentRequest.getMiddleName());
     }
 
     @DeleteMapping("/delete")
     public void delete(@RequestParam(name = "id") int id) {
         studentService.remove(id);
-    }
-
-    @PostMapping("/update")
-    public StudentResponse update(@RequestBody StudentRequest studentRequest) {
-        System.out.println(studentRequest);
-        studentService.update(studentRequest);
-        return new StudentResponse(studentRequest.getId(), studentRequest.getLastName(),
-                studentRequest.getFirstName(), studentRequest.getMiddleName());
     }
 }
