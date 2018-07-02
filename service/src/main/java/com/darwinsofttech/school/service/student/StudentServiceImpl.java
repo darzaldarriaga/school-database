@@ -72,6 +72,7 @@ public class StudentServiceImpl implements StudentService {
         List<StudentScheduleResponse> studentScheduleResponses = new ArrayList<>();
         schedules.forEach(schedule -> {
             StudentScheduleResponse studentScheduleResponse = new StudentScheduleResponse();
+            studentScheduleResponse.setId(schedule.getId());
             studentScheduleResponse.setSubject(NoScheduleMapper.mapToSubjectResponse(schedule.getSubject()));
             studentScheduleResponse.setTeacher(NoScheduleMapper.mapToTeacherResponse(schedule.getTeacher()));
             studentScheduleResponses.add(studentScheduleResponse);
@@ -83,6 +84,7 @@ public class StudentServiceImpl implements StudentService {
     public StudentResponse findById(int studentId) {
         Student student = studentRepository.findById(studentId).orElseThrow(() -> new IllegalArgumentException("Student Id not found"));
         StudentResponse studentResponse = mapToStudentResponse(student);
+        studentResponse.setSchedules(mapToScheduleResponses(student.getSchedules()));
         return studentResponse;
     }
 }
