@@ -103,7 +103,7 @@ public class StudentRepositoryTest {
 
 
         studentWithSchedule.getSchedules().forEach(schedule1 -> {
-            schedule1 = scheduleRepository.findScheduleById(schedule1.getId());
+            schedule1 = scheduleRepository.findByIdWithStudents(schedule1.getId()).orElseThrow(() -> new IllegalArgumentException("Schedule does not exist"));
             schedule1.getStudents().remove(student);
             scheduleRepository.save(schedule1);
             //studentWithSchedule.getSchedules().remove(schedule1);
