@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface SubjectService {
     void save(String subjectCode, String subjectDescription);
-    void update(Subject subject);
+    void update(SubjectRequest subjectRequest);
     void remove(int subjectId);
     List<SubjectResponse> findAll();
-    Subject findById(int subjectId);
+    SubjectResponse findById(int subjectId);
 }
