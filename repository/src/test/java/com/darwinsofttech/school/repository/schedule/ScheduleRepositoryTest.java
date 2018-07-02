@@ -47,12 +47,6 @@ public class ScheduleRepositoryTest {
         firstSchedule.setStudents(studentList);
         scheduleRepository.save(firstSchedule);
         Assert.assertNotNull(firstSchedule);
-//        Schedule schedule1 = scheduleRepository.findScheduleById(schedule.getId());
-//        Assert.assertNotNull(schedule1);
-//        System.out.println(schedule1.getId());
-//        System.out.println(schedule1.getSubject());
-//        System.out.println(schedule1.getTeacher());
-//        System.out.println(schedule1.getStudents());
     }
 
     @Test
@@ -98,7 +92,7 @@ public class ScheduleRepositoryTest {
         firstSchedule.setStudents(studentList);
         scheduleRepository.save(firstSchedule);
 
-        Schedule schedule = scheduleRepository.findScheduleById(firstSchedule.getId());
+        Schedule schedule = scheduleRepository.findByIdWithStudents(firstSchedule.getId()).orElseThrow(() -> new IllegalArgumentException("Schedule does not exist"));
         Assert.assertNotNull(schedule);
 
         scheduleRepository.delete(schedule);
@@ -148,7 +142,7 @@ public class ScheduleRepositoryTest {
         schedule.setStudents(studentList);
         scheduleRepository.save(schedule);
 
-        Schedule scheduleById = scheduleRepository.findScheduleById(schedule.getId());
+        Schedule scheduleById = scheduleRepository.findByIdWithStudents(schedule.getId()).orElseThrow(() -> new IllegalArgumentException("Schedule does not exist"));
         Assert.assertTrue(scheduleById.getStudents().contains(student));
     }
 }
