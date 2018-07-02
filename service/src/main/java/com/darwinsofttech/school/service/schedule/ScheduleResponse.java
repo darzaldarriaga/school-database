@@ -12,6 +12,9 @@ public class ScheduleResponse {
     private TeacherResponseWithoutScheds teacherResponse;
     private List<StudentResponseWithoutScheds> studentResponses;
 
+    public ScheduleResponse() {
+    }
+
     public ScheduleResponse(int id,
                             SubjectResponseWithoutScheds subjectResponse,
                             TeacherResponseWithoutScheds teacherResponse,
