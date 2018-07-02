@@ -1,11 +1,10 @@
 package com.darwinsofttech.restcontroller.student;
 
+import com.darwinsofttech.school.service.schedule.ScheduleRequest;
 import com.darwinsofttech.school.service.schedule.ScheduleResponse;
 import com.darwinsofttech.school.service.schedule.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,5 +18,33 @@ public class ScheduleRestController {
     @GetMapping("/list")
     public List<ScheduleResponse> findAll() {
         return scheduleService.findAll();
+    }
+
+    @GetMapping("/findOne")
+    public ScheduleResponse findById(@RequestParam(name = "id") int id) {
+        return scheduleService.findById(id);
+    }
+
+    @PostMapping("/create")
+    public ScheduleResponse create(@RequestBody ScheduleRequest scheduleRequest) {
+        scheduleService.create(scheduleRequest);
+        return scheduleService.findById(scheduleRequest.getId());
+    }
+
+    @PostMapping("/update")
+    public ScheduleResponse update(@RequestBody ScheduleRequest scheduleRequest) {
+        scheduleService.update(scheduleRequest);
+        return scheduleService.findById(scheduleRequest.getId());
+    }
+
+    @PostMapping("/addStudent")
+    public ScheduleResponse addStudent(@RequestBody ScheduleRequest scheduleRequest) {
+        scheduleService.addStudent(scheduleRequest);
+        return scheduleService.findById(scheduleRequest.getId());
+    }
+
+    @DeleteMapping("/delete")
+    public void delete(@RequestParam(name = "id") int id) {
+        scheduleService.delete(id);
     }
 }
