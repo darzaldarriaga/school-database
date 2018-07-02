@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,8 +31,17 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public void update(Teacher teacher) {
-        teacherRepository.save(teacher);
+    public void update(TeacherRequest teacherRequest) {
+        Optional<Teacher> optionalTeacher = teacherRepository.findById(teacherRequest.getId());
+        if(optionalTeacher.isPresent()) {
+            Teacher teacher = optionalTeacher.get();
+            teacher.setLastName(teacherRequest.getLastName());
+            teacher.setFirstName(teacherRequest.getFirstName());
+            teacher.setMiddleName(teacherRequest.getMiddleName());
+            teacherRepository.save(teacher);
+        } else {
+            throw new IllegalArgumentException("Teacher does not exist");
+        }
     }
 
     @Override
@@ -69,7 +79,10 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public Teacher findById(int teacherId) {
-        return teacherRepository.findById(teacherId).orElseThrow(() -> new IllegalArgumentException("Teacher ID not found"));
+    public TeacherResponse findById(int teacherId) {
+        Teacher teacher = teacherRepository.findById(teacherId).orElseThrow(() -> new IllegalArgumentException("Teacher Id not found"));
+        TeacherResponse teacherResponse = mapToTeacherResponse(teacher);
+        teacherResponse.setSchedules(mapToScheduleResponse(teacher.getSchedules()));
+        return teacherResponse;
     }
 }
