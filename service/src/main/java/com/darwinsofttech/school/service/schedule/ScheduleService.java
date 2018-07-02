@@ -5,9 +5,10 @@ import com.darwinsofttech.school.repository.schedule.Schedule;
 import java.util.List;
 
 public interface ScheduleService {
-    void assignSchedule(int subjectId, int teacherId);
-    void updateSchedule(Schedule schedule);
-    void removeSchedule(int scheduleId);
+    void create(ScheduleRequest scheduleRequest);
+    void update(ScheduleRequest scheduleRequest);
+    void addStudent(ScheduleRequest scheduleRequest);
+    void delete(int scheduleId);
     List<ScheduleResponse> findAll();
-    Schedule findById(int scheduleId);
+    ScheduleResponse findById(int scheduleId);
 }
