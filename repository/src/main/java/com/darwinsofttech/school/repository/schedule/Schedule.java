@@ -33,17 +33,24 @@ public class Schedule {
             inverseJoinColumns = @JoinColumn(name = "studentId", referencedColumnName = "id"))
     private List<Student> students;
 
+    private String days;
+    private String time;
+
     public Schedule() {
     }
 
-    public Schedule(Subject subject, Teacher teacher) {
+    public Schedule(Subject subject, Teacher teacher, String days, String time) {
         this.subject = subject;
         this.teacher = teacher;
+        this.days = days;
+        this.time = time;
     }
 
-    public Schedule(Subject subject, Teacher teacher, List<Student> students) {
+    public Schedule(Subject subject, Teacher teacher, String days, String time, List<Student> students) {
         this.subject = subject;
         this.teacher = teacher;
+        this.days = days;
+        this.time = time;
         this.students = students;
     }
 
@@ -79,6 +86,22 @@ public class Schedule {
         this.teacher = teacher;
     }
 
+    public String getDays() {
+        return days;
+    }
+
+    public void setDays(String days) {
+        this.days = days;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
     public List<Student> getStudents() {
         return students;
     }
@@ -108,6 +131,8 @@ public class Schedule {
                 ", version=" + version +
                 ", subject=" + subject +
                 ", teacher=" + teacher +
-                '}';
+                ", days=" + days +
+                ", time=" + time +
+                "}";
     }
 }
