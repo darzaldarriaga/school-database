@@ -74,11 +74,15 @@ public class StudentRepositoryTest {
     public void findAllSchedulesById() {
         Teacher teacher = teacherRepository.save(new Teacher("TeachLast", "TeachFirst", "TeachMiddle"));
         Subject subject = subjectRepository.save(new Subject("IT 101", "Programming"));
-        Schedule schedule = scheduleRepository.save(new Schedule(subject, teacher));
+        String days = "MWF";
+        String time = "7:00 -  10:00";
+        Schedule schedule = scheduleRepository.save(new Schedule(subject, teacher, days, time));
 
         Teacher teacher2 = teacherRepository.save(new Teacher("TeachLast", "TeachFirst", "TeachMiddle"));
         Subject subject2 = subjectRepository.save(new Subject("IT 101", "Programming"));
-        Schedule schedule2 = scheduleRepository.save(new Schedule(subject, teacher));
+        String days2 = "TTH";
+        String time2 = "10:00 - 12:00";
+        Schedule schedule2 = scheduleRepository.save(new Schedule(subject, teacher, days2, time2));
 
         Student student = studentRepository.save(new Student("StudentLast", "StudentFirst", "StudentMiddle"));
         List<Student> studentList = new ArrayList<>();

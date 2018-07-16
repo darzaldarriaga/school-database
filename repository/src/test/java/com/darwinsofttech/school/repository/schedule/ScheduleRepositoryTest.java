@@ -34,8 +34,10 @@ public class ScheduleRepositoryTest {
     public void createTest() {
         Teacher teacher = teacherRepository.save(new Teacher("TeachLast", "TeachFirst", "TeachMiddle"));
         Subject subject = subjectRepository.save(new Subject("IT 101", "Programming"));
+        String days = "MWF";
+        String time = "7:00 - 10:00";
 
-        Schedule firstSchedule = scheduleRepository.save(new Schedule(subject, teacher));
+        Schedule firstSchedule = scheduleRepository.save(new Schedule(subject, teacher, days, time));
         Assert.assertNotNull(firstSchedule);
         List<Schedule> schedules = new ArrayList<>();
         schedules.add(firstSchedule);
@@ -59,9 +61,11 @@ public class ScheduleRepositoryTest {
         //creates subject 1 for initial saving and subject 2 for update purposes
         Subject subject = subjectRepository.save(new Subject("IT 101", "Programming"));
         Subject subject2 = subjectRepository.save(new Subject("IT 102", "Java Programming"));
+        String days = "MWF";
+        String time = "7:00 - 10:00";
 
         //creates a schedule to be added into a list
-        Schedule firstSchedule = scheduleRepository.save(new Schedule(subject, teacher));
+        Schedule firstSchedule = scheduleRepository.save(new Schedule(subject, teacher, days, time));
 
         //creates a student to be saved into a list which will be added into the schedule
         Student student = studentRepository.save(new Student("StudentLast", "StudentFirst", "StudentMiddle"));
@@ -82,8 +86,10 @@ public class ScheduleRepositoryTest {
 
         Teacher teacher = teacherRepository.save(new Teacher("TeachLast", "TeachFirst", "TeachMiddle"));
         Subject subject = subjectRepository.save(new Subject("IT 101", "Programming"));
+        String days = "MWF";
+        String time = "7:00 - 10:00";
 
-        Schedule firstSchedule = scheduleRepository.save(new Schedule(subject, teacher));
+        Schedule firstSchedule = scheduleRepository.save(new Schedule(subject, teacher, days, time));
 
         Student student = studentRepository.save(new Student("StudentLast", "StudentFirst", "StudentMiddle"));
         List<Student> studentList = new ArrayList<>();
@@ -104,8 +110,10 @@ public class ScheduleRepositoryTest {
     public void findAllTest() {
         Teacher teacher = teacherRepository.save(new Teacher("TeachLast", "TeachFirst", "TeachMiddle"));
         Subject subject = subjectRepository.save(new Subject("IT 101", "Programming"));
+        String days = "MWF";
+        String time = "7:00 - 10:00";
 
-        Schedule schedule = scheduleRepository.save(new Schedule(subject, teacher));
+        Schedule schedule = scheduleRepository.save(new Schedule(subject, teacher, days, time));
         scheduleRepository.save(schedule);
 
         List<Schedule> schedules = scheduleRepository.findAll();
@@ -117,8 +125,10 @@ public class ScheduleRepositoryTest {
     public void findByIdTest() {
         Teacher teacher = teacherRepository.save(new Teacher("TeachLast", "TeachFirst", "TeachMiddle"));
         Subject subject = subjectRepository.save(new Subject("IT 101", "Programming"));
+        String days = "MWF";
+        String time = "7:00 - 10:00";
 
-        Schedule schedule = scheduleRepository.save(new Schedule(subject, teacher));
+        Schedule schedule = scheduleRepository.save(new Schedule(subject, teacher, days, time));
         scheduleRepository.save(schedule);
 
         Optional<Schedule> optionalSchedule = scheduleRepository.findById(schedule.getId());
@@ -133,7 +143,9 @@ public class ScheduleRepositoryTest {
 
         Teacher teacher = teacherRepository.save(new Teacher("TeachLast", "TeachFirst", "TeachMiddle"));
         Subject subject = subjectRepository.save(new Subject("IT 101", "Programming"));
-        Schedule schedule = scheduleRepository.save(new Schedule(subject, teacher));
+        String days = "MWF";
+        String time = "7:00 - 10:00";
+        Schedule schedule = scheduleRepository.save(new Schedule(subject, teacher, days, time));
 
         Student student = studentRepository.save(new Student("StudentLast", "StudentFirst", "StudentMiddle"));
         List<Student> studentList = new ArrayList<>();

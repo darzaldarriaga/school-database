@@ -33,7 +33,10 @@ public class Schedule {
             inverseJoinColumns = @JoinColumn(name = "studentId", referencedColumnName = "id"))
     private List<Student> students;
 
+    @Column(nullable = false)
     private String days;
+
+    @Column(nullable = false)
     private String time;
 
     public Schedule() {

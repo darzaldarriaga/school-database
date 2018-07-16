@@ -72,9 +72,12 @@ public class SubjectRepositoryTest {
         Teacher teacher2 = teacherRepository.save(new Teacher("Last2", "First2", "Middle2"));
         Teacher teacher3 = teacherRepository.save(new Teacher("Last3", "First3", "Middle3"));
 
-        Schedule schedule1 = scheduleRepository.save(new Schedule(subject, teacher1));
-        Schedule schedule2 = scheduleRepository.save(new Schedule(subject, teacher2));
-        Schedule schedule3 = scheduleRepository.save(new Schedule(subject, teacher3));
+        String days = "MWF";
+        String time = "7:00 - 10:00";
+
+        Schedule schedule1 = scheduleRepository.save(new Schedule(subject, teacher1, days, time));
+        Schedule schedule2 = scheduleRepository.save(new Schedule(subject, teacher2, days, time));
+        Schedule schedule3 = scheduleRepository.save(new Schedule(subject, teacher3, days, time));
 
         Subject findSubject = subjectRepository.findByIdWithSchedules(subject.getId());
         Assert.assertNotNull(findSubject);
