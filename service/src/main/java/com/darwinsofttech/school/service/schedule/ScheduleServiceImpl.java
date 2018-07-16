@@ -39,7 +39,7 @@ public class ScheduleServiceImpl implements ScheduleService {
                 () -> new IllegalArgumentException("Teacher does not exist")
         );
 
-        Schedule schedule = new Schedule(subject, teacher);
+        Schedule schedule = new Schedule(subject, teacher, scheduleRequest.getDays(), scheduleRequest.getTime());
         scheduleRepository.save(schedule);
     }
 
@@ -51,6 +51,8 @@ public class ScheduleServiceImpl implements ScheduleService {
 
         schedule.setSubject(subject);
         schedule.setTeacher(teacher);
+        schedule.setDays(scheduleRequest.getDays());
+        schedule.setTime(scheduleRequest.getTime());
         scheduleRepository.save(schedule);
     }
 
@@ -82,6 +84,8 @@ public class ScheduleServiceImpl implements ScheduleService {
                 schedule.getId(),
                 NoScheduleMapper.mapToSubjectResponse(schedule.getSubject()),
                 NoScheduleMapper.mapToTeacherResponse(schedule.getTeacher()),
+                schedule.getDays(),
+                schedule.getTime(),
                 NoScheduleMapper.mapToStudentResponses(schedule.getStudents())
         );
         return  scheduleResponse;

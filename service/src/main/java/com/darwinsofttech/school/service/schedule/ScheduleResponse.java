@@ -10,6 +10,8 @@ public class ScheduleResponse {
     private int id;
     private SubjectResponseWithoutScheds subjectResponse;
     private TeacherResponseWithoutScheds teacherResponse;
+    private String days;
+    private String time;
     private List<StudentResponseWithoutScheds> studentResponses;
 
     public ScheduleResponse() {
@@ -18,11 +20,15 @@ public class ScheduleResponse {
     public ScheduleResponse(int id,
                             SubjectResponseWithoutScheds subjectResponse,
                             TeacherResponseWithoutScheds teacherResponse,
+                            String days,
+                            String time,
                             List<StudentResponseWithoutScheds> studentResponses) {
 
         this.id = id;
         this.subjectResponse = subjectResponse;
         this.teacherResponse = teacherResponse;
+        this.days = days;
+        this.time = time;
         this.studentResponses = studentResponses;
     }
 
@@ -56,5 +62,21 @@ public class ScheduleResponse {
 
     public void setStudentResponses(List<StudentResponseWithoutScheds> studentResponses) {
         this.studentResponses = studentResponses;
+    }
+
+    public String getDays() {
+        return days;
+    }
+
+    public void setDays(String days) {
+        this.days = days;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 }
