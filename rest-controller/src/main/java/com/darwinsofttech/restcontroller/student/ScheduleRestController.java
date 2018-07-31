@@ -28,7 +28,7 @@ public class ScheduleRestController {
     @PostMapping("/create")
     public ScheduleResponse create(@RequestBody ScheduleRequest scheduleRequest) {
         scheduleService.create(scheduleRequest);
-        return scheduleService.findById(scheduleRequest.getId());
+        return new ScheduleResponse();
     }
 
     @PostMapping("/update")
@@ -40,6 +40,12 @@ public class ScheduleRestController {
     @PostMapping("/addStudent")
     public ScheduleResponse addStudent(@RequestBody ScheduleRequest scheduleRequest) {
         scheduleService.addStudent(scheduleRequest);
+        return scheduleService.findById(scheduleRequest.getId());
+    }
+
+    @PostMapping("/removeStudent")
+    public ScheduleResponse removeStudent(@RequestBody ScheduleRequest scheduleRequest) {
+        scheduleService.removeStudent(scheduleRequest);
         return scheduleService.findById(scheduleRequest.getId());
     }
 
