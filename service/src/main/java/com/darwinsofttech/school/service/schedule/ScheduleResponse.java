@@ -8,28 +8,28 @@ import java.util.List;
 
 public class ScheduleResponse {
     private int id;
-    private SubjectResponseWithoutScheds subjectResponse;
-    private TeacherResponseWithoutScheds teacherResponse;
+    private SubjectResponseWithoutScheds subject;
+    private TeacherResponseWithoutScheds teacher;
     private String days;
     private String time;
-    private List<StudentResponseWithoutScheds> studentResponses;
+    private List<StudentResponseWithoutScheds> students;
 
     public ScheduleResponse() {
     }
 
     public ScheduleResponse(int id,
-                            SubjectResponseWithoutScheds subjectResponse,
-                            TeacherResponseWithoutScheds teacherResponse,
+                            SubjectResponseWithoutScheds subject,
+                            TeacherResponseWithoutScheds teacher,
                             String days,
                             String time,
-                            List<StudentResponseWithoutScheds> studentResponses) {
+                            List<StudentResponseWithoutScheds> students) {
 
         this.id = id;
-        this.subjectResponse = subjectResponse;
-        this.teacherResponse = teacherResponse;
+        this.subject = subject;
+        this.teacher = teacher;
         this.days = days;
         this.time = time;
-        this.studentResponses = studentResponses;
+        this.students = students;
     }
 
     public int getId() {
@@ -40,28 +40,28 @@ public class ScheduleResponse {
         this.id = id;
     }
 
-    public SubjectResponseWithoutScheds getSubjectResponse() {
-        return subjectResponse;
+    public SubjectResponseWithoutScheds getSubject() {
+        return subject;
     }
 
-    public void setSubjectResponse(SubjectResponseWithoutScheds subjectResponse) {
-        this.subjectResponse = subjectResponse;
+    public void setSubject(SubjectResponseWithoutScheds subject) {
+        this.subject = subject;
     }
 
-    public TeacherResponseWithoutScheds getTeacherResponse() {
-        return teacherResponse;
+    public TeacherResponseWithoutScheds getTeacher() {
+        return teacher;
     }
 
-    public void setTeacherResponse(TeacherResponseWithoutScheds teacherResponse) {
-        this.teacherResponse = teacherResponse;
+    public void setTeacher(TeacherResponseWithoutScheds teacher) {
+        this.teacher = teacher;
     }
 
-    public List<StudentResponseWithoutScheds> getStudentResponses() {
-        return studentResponses;
+    public List<StudentResponseWithoutScheds> getStudents() {
+        return students;
     }
 
-    public void setStudentResponses(List<StudentResponseWithoutScheds> studentResponses) {
-        this.studentResponses = studentResponses;
+    public void setStudentRs(List<StudentResponseWithoutScheds> students) {
+        this.students = students;
     }
 
     public String getDays() {
