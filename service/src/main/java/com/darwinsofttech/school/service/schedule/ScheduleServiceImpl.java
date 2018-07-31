@@ -21,7 +21,6 @@ public class ScheduleServiceImpl implements ScheduleService {
     private TeacherRepository teacherRepository;
     private StudentRepository studentRepository;
 
-    //TODO add repositories
     public ScheduleServiceImpl(ScheduleRepository scheduleRepository, SubjectRepository subjectRepository, TeacherRepository teacherRepository, StudentRepository studentRepository) {
         this.scheduleRepository = scheduleRepository;
         this.subjectRepository = subjectRepository;
@@ -62,6 +61,15 @@ public class ScheduleServiceImpl implements ScheduleService {
         Student student = studentRepository.findById(scheduleRequest.getStudentId()).orElseThrow(() -> new IllegalArgumentException("Student does not exist"));
 
         schedule.getStudents().add(student);
+        scheduleRepository.save(schedule);
+    }
+
+    @Override
+    public void removeStudent(ScheduleRequest scheduleRequest) {
+        Schedule schedule = scheduleRepository.findById(scheduleRequest.getId()).orElseThrow(() -> new IllegalArgumentException("Schedule does not exist"));
+        Student student = studentRepository.findById(scheduleRequest.getStudentId()).orElseThrow(() -> new IllegalArgumentException("Student does not exist"));
+
+        schedule.getStudents().remove(student);
         scheduleRepository.save(schedule);
     }
 
