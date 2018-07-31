@@ -7,6 +7,8 @@ public class StudentScheduleResponse {
     private int id;
     private TeacherResponseWithoutScheds teacher;
     private SubjectResponseWithoutScheds subject;
+    private String days;
+    private String time;
 
     public int getId() {
         return id;
@@ -30,5 +32,21 @@ public class StudentScheduleResponse {
 
     public void setSubject(SubjectResponseWithoutScheds subject) {
         this.subject = subject;
+    }
+
+    public String getDays() {
+        return days;
+    }
+
+    public void setDays(String days) {
+        this.days = days;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 }

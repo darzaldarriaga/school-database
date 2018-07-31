@@ -11,6 +11,8 @@ public class SubjectScheduleResponse {
     private int id;
     private TeacherResponseWithoutScheds teacher;
     private List<StudentResponseWithoutScheds> students;
+    private String days;
+    private String time;
 
     public int getId() {
         return id;
@@ -34,5 +36,21 @@ public class SubjectScheduleResponse {
 
     public void setStudents(List<StudentResponseWithoutScheds> students) {
         this.students = students;
+    }
+
+    public String getDays() {
+        return days;
+    }
+
+    public void setDays(String days) {
+        this.days = days;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 }
