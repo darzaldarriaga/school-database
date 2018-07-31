@@ -75,6 +75,8 @@ public class StudentServiceImpl implements StudentService {
             studentScheduleResponse.setId(schedule.getId());
             studentScheduleResponse.setSubject(NoScheduleMapper.mapToSubjectResponse(schedule.getSubject()));
             studentScheduleResponse.setTeacher(NoScheduleMapper.mapToTeacherResponse(schedule.getTeacher()));
+            studentScheduleResponse.setDays(schedule.getDays());
+            studentScheduleResponse.setTime(schedule.getTime());
             studentScheduleResponses.add(studentScheduleResponse);
         });
         return studentScheduleResponses;

@@ -70,6 +70,8 @@ public class SubjectServiceImpl implements SubjectService {
             subjectScheduleResponse.setId(schedule.getId());
             subjectScheduleResponse.setTeacher(NoScheduleMapper.mapToTeacherResponse(schedule.getTeacher()));
             subjectScheduleResponse.setStudents(NoScheduleMapper.mapToStudentResponses(schedule.getStudents()));
+            subjectScheduleResponse.setDays(schedule.getDays());
+            subjectScheduleResponse.setTime(schedule.getTime());
             subjectScheduleResponses.add(subjectScheduleResponse);
         });
         return subjectScheduleResponses;
