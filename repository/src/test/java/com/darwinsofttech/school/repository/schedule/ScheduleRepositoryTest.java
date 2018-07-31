@@ -156,5 +156,11 @@ public class ScheduleRepositoryTest {
 
         Schedule scheduleById = scheduleRepository.findByIdWithStudents(schedule.getId()).orElseThrow(() -> new IllegalArgumentException("Schedule does not exist"));
         Assert.assertTrue(scheduleById.getStudents().contains(student));
+
+        scheduleById.getStudents().remove(student);
+        scheduleRepository.save(scheduleById);
+
+//        Schedule scheduleWithNoStudent = scheduleRepository.findByIdWithStudents(schedule.getId()).orElseThrow(() -> new IllegalArgumentException("Schedule does not exist"));
+//        Assert.assertTrue(!scheduleWithNoStudent.getStudents().contains(student));
     }
 }
