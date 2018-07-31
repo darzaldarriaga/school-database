@@ -24,12 +24,12 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public void save(String lastName, String firstName, String middleName) {
+    public Student save(String lastName, String firstName, String middleName) {
         Student student = new Student();
         student.setLastName(Conversion.convertNames(lastName));
         student.setFirstName(Conversion.convertNames(firstName));
         student.setMiddleName(Conversion.convertNames(middleName));
-        studentRepository.save(student);
+        return studentRepository.save(student);
     }
 
     @Override
