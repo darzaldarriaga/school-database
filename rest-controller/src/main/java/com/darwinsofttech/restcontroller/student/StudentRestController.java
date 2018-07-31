@@ -1,5 +1,6 @@
 package com.darwinsofttech.restcontroller.student;
 
+import com.darwinsofttech.school.repository.student.Student;
 import com.darwinsofttech.school.service.student.StudentRequest;
 import com.darwinsofttech.school.service.student.StudentResponse;
 import com.darwinsofttech.school.service.student.StudentService;
@@ -32,8 +33,8 @@ public class StudentRestController {
 
     @PostMapping("/create")
     public StudentResponse create(@RequestBody StudentRequest studentRequest) {
-        studentService.save(studentRequest.getLastName(), studentRequest.getFirstName(), studentRequest.getMiddleName());
-        return new StudentResponse();
+        Student newStudent = studentService.save(studentRequest.getLastName(), studentRequest.getFirstName(), studentRequest.getMiddleName());
+        return new StudentResponse(newStudent.getId(), newStudent.getLastName(), newStudent.getFirstName(), newStudent.getMiddleName());
     }
 
     @PostMapping("/update")
