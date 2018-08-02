@@ -4,8 +4,13 @@ import com.darwinsofttech.school.repository.schedule.Schedule;
 import com.darwinsofttech.school.repository.teacher.Teacher;
 import com.darwinsofttech.school.repository.teacher.TeacherRepository;
 import com.darwinsofttech.school.service.Conversion;
+import com.darwinsofttech.school.service.exceptions.CustomException;
 import com.darwinsofttech.school.service.schedule.TeacherScheduleResponse;
 import com.darwinsofttech.school.service.utils.NoScheduleMapper;
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperRunManager;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -86,5 +91,18 @@ public class TeacherServiceImpl implements TeacherService {
         TeacherResponse teacherResponse = mapToTeacherResponse(teacher);
         teacherResponse.setSchedules(mapToScheduleResponse(teacher.getSchedules()));
         return teacherResponse;
+    }
+
+    @Override
+    public byte[] getReport() throws CustomException {
+        List<Teacher> teachers = teacherRepository.findAll();
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(teachers);
+        try {
+            byte[] pdfReportInByte = JasperRunManager.runReportToPdf("..\\reports\\teacher_report.jasper", null, dataSource);
+            return pdfReportInByte;
+        } catch (JRException e) {
+            e.printStackTrace();
+            throw new CustomException("Report was not generated");
+        }
     }
 }

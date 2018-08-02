@@ -109,12 +109,6 @@ public class Teacher implements Serializable {
 
     @Override
     public String toString() {
-        return "Teacher{" +
-                "id=" + id +
-                ", version=" + version +
-                ", lastName='" + lastName + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", middleName='" + middleName + '\'' +
-                '}';
+        return lastName + ", " + firstName + " " + middleName;
     }
 }

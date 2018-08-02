@@ -4,8 +4,12 @@ import com.darwinsofttech.school.repository.schedule.Schedule;
 import com.darwinsofttech.school.repository.student.Student;
 import com.darwinsofttech.school.repository.student.StudentRepository;
 import com.darwinsofttech.school.service.Conversion;
+import com.darwinsofttech.school.service.exceptions.CustomException;
 import com.darwinsofttech.school.service.schedule.StudentScheduleResponse;
 import com.darwinsofttech.school.service.utils.NoScheduleMapper;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperRunManager;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -88,5 +92,18 @@ public class StudentServiceImpl implements StudentService {
         StudentResponse studentResponse = mapToStudentResponse(student);
         studentResponse.setSchedules(mapToScheduleResponses(student.getSchedules()));
         return studentResponse;
+    }
+
+    @Override
+    public byte[] getReport() throws CustomException {
+        List<Student> students = studentRepository.findAll();
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(students);
+        try {
+            byte[] pdfReportInBytes = JasperRunManager.runReportToPdf("..\\reports\\student_report.jasper", null, dataSource);
+            return pdfReportInBytes;
+        } catch (JRException e) {
+            e.printStackTrace();
+            throw new CustomException("Report was not generated");
+        }
     }
 }

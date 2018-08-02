@@ -1,6 +1,7 @@
 package com.darwinsofttech.restcontroller.student;
 
 import com.darwinsofttech.school.repository.student.Student;
+import com.darwinsofttech.school.service.exceptions.CustomException;
 import com.darwinsofttech.school.service.student.StudentRequest;
 import com.darwinsofttech.school.service.student.StudentResponse;
 import com.darwinsofttech.school.service.student.StudentService;
@@ -47,5 +48,15 @@ public class StudentRestController {
     @DeleteMapping("/delete")
     public void delete(@RequestParam(name = "id") int id) {
         studentService.remove(id);
+    }
+
+    @GetMapping("/getReport")
+    public byte[] getReport() {
+        try {
+            return studentService.getReport();
+        } catch (CustomException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

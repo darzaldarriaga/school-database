@@ -95,11 +95,6 @@ public class Subject {
 
     @Override
     public String toString() {
-        return "Subject{" +
-                "id=" + id +
-                ", version=" + version +
-                ", subjectCode='" + subjectCode + '\'' +
-                ", subjectDescription='" + subjectDescription + '\'' +
-                '}';
+        return subjectCode + " - " + subjectDescription;
     }
 }

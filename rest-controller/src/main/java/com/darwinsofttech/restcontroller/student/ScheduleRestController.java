@@ -1,5 +1,6 @@
 package com.darwinsofttech.restcontroller.student;
 
+import com.darwinsofttech.school.service.exceptions.CustomException;
 import com.darwinsofttech.school.service.schedule.ScheduleRequest;
 import com.darwinsofttech.school.service.schedule.ScheduleResponse;
 import com.darwinsofttech.school.service.schedule.ScheduleService;
@@ -52,5 +53,15 @@ public class ScheduleRestController {
     @DeleteMapping("/delete")
     public void delete(@RequestParam(name = "id") int id) {
         scheduleService.delete(id);
+    }
+
+    @GetMapping("/getReport")
+    public byte[] getReport() {
+        try {
+            return scheduleService.getReport();
+        } catch (CustomException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

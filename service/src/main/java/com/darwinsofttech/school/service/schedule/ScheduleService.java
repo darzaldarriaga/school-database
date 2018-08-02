@@ -1,5 +1,7 @@
 package com.darwinsofttech.school.service.schedule;
 
+import com.darwinsofttech.school.service.exceptions.CustomException;
+
 import java.util.List;
 
 public interface ScheduleService {
@@ -10,4 +12,5 @@ public interface ScheduleService {
     void delete(int scheduleId);
     List<ScheduleResponse> findAll();
     ScheduleResponse findById(int scheduleId);
+    byte[] getReport() throws CustomException;
 }

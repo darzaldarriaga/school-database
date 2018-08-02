@@ -1,6 +1,6 @@
 package com.darwinsofttech.school.service.teacher;
 
-import com.darwinsofttech.school.repository.teacher.Teacher;
+import com.darwinsofttech.school.service.exceptions.CustomException;
 
 import java.util.List;
 
@@ -10,4 +10,5 @@ public interface TeacherService {
     void remove(int teacherId);
     List<TeacherResponse> findAll();
     TeacherResponse findById(int teacherId);
+    byte[] getReport() throws CustomException;
 }

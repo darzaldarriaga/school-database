@@ -129,13 +129,6 @@ public class Schedule {
 
     @Override
     public String toString() {
-        return "Schedule{" +
-                "id=" + id +
-                ", version=" + version +
-                ", subject=" + subject +
-                ", teacher=" + teacher +
-                ", days=" + days +
-                ", time=" + time +
-                "}";
+        return subject + " " + teacher + " " + days + " " + time;
     }
 }

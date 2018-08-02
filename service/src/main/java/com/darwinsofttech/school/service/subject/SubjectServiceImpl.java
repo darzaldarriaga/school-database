@@ -1,11 +1,14 @@
 package com.darwinsofttech.school.service.subject;
 
 import com.darwinsofttech.school.repository.schedule.Schedule;
-import com.darwinsofttech.school.repository.student.Student;
 import com.darwinsofttech.school.repository.subject.Subject;
 import com.darwinsofttech.school.repository.subject.SubjectRepository;
+import com.darwinsofttech.school.service.exceptions.CustomException;
 import com.darwinsofttech.school.service.schedule.SubjectScheduleResponse;
 import com.darwinsofttech.school.service.utils.NoScheduleMapper;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperRunManager;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -83,5 +86,19 @@ public class SubjectServiceImpl implements SubjectService {
         SubjectResponse subjectResponse = mapToSubjectResponse(subject);
         subjectResponse.setSchedules(mapToScheduleResponses(subject.getSchedules()));
         return subjectResponse;
+    }
+
+    @Override
+    public byte[] getReport() throws CustomException {
+        List<Subject> subjects = subjectRepository.findAll();
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(subjects);
+        try {
+            byte[] pdfReportInByte = JasperRunManager.runReportToPdf(
+                    "..\\reports\\subject_report.jasper", null, dataSource);
+            return pdfReportInByte;
+        } catch (JRException e) {
+            e.printStackTrace();
+            throw new CustomException("Report was not generated");
+        }
     }
 }

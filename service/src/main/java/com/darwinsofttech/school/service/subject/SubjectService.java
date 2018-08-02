@@ -1,6 +1,6 @@
 package com.darwinsofttech.school.service.subject;
 
-import com.darwinsofttech.school.repository.subject.Subject;
+import com.darwinsofttech.school.service.exceptions.CustomException;
 
 import java.util.List;
 
@@ -10,4 +10,5 @@ public interface SubjectService {
     void remove(int subjectId);
     List<SubjectResponse> findAll();
     SubjectResponse findById(int subjectId);
+    byte[] getReport() throws CustomException;
 }

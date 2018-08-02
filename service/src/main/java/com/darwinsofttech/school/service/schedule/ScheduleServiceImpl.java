@@ -8,7 +8,11 @@ import com.darwinsofttech.school.repository.subject.Subject;
 import com.darwinsofttech.school.repository.subject.SubjectRepository;
 import com.darwinsofttech.school.repository.teacher.Teacher;
 import com.darwinsofttech.school.repository.teacher.TeacherRepository;
+import com.darwinsofttech.school.service.exceptions.CustomException;
 import com.darwinsofttech.school.service.utils.NoScheduleMapper;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperRunManager;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -104,5 +108,18 @@ public class ScheduleServiceImpl implements ScheduleService {
         Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(() -> new IllegalArgumentException("Schedule does not exist"));
         ScheduleResponse scheduleResponse = mapToScheduleResponse(schedule);
         return scheduleResponse;
+    }
+
+    @Override
+    public byte[] getReport() throws CustomException {
+        List<Schedule> schedules = scheduleRepository.findAll();
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(schedules);
+        try {
+            byte[] pdfReportInBytes = JasperRunManager.runReportToPdf("..\\reports\\schedule_report.jasper", null, dataSource);
+            return pdfReportInBytes;
+        } catch (JRException e) {
+            e.printStackTrace();
+            throw new CustomException("Report was not generated");
+        }
     }
 }
