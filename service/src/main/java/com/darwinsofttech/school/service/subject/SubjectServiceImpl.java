@@ -94,7 +94,7 @@ public class SubjectServiceImpl implements SubjectService {
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(subjects);
         try {
             byte[] pdfReportInByte = JasperRunManager.runReportToPdf(
-                    "..\\reports\\subject_report.jasper", null, dataSource);
+                    "..\\..\\reports\\subject_report.jasper", null, dataSource);
             return pdfReportInByte;
         } catch (JRException e) {
             e.printStackTrace();
