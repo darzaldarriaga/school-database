@@ -115,7 +115,8 @@ public class ScheduleServiceImpl implements ScheduleService {
         List<Schedule> schedules = scheduleRepository.findAll();
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(schedules);
         try {
-            byte[] pdfReportInBytes = JasperRunManager.runReportToPdf("..\\reports\\schedule_report.jasper", null, dataSource);
+            byte[] pdfReportInBytes = JasperRunManager.runReportToPdf(
+					"..\\..\\reports\\schedule_report.jasper", null, dataSource);
             return pdfReportInBytes;
         } catch (JRException e) {
             e.printStackTrace();
