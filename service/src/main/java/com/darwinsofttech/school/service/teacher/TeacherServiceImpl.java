@@ -98,7 +98,8 @@ public class TeacherServiceImpl implements TeacherService {
         List<Teacher> teachers = teacherRepository.findAll();
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(teachers);
         try {
-            byte[] pdfReportInByte = JasperRunManager.runReportToPdf("..\\reports\\teacher_report.jasper", null, dataSource);
+            byte[] pdfReportInByte = JasperRunManager.runReportToPdf(
+					"..\\..\\reports\\teacher_report.jasper", null, dataSource);
             return pdfReportInByte;
         } catch (JRException e) {
             e.printStackTrace();
