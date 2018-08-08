@@ -9,9 +9,6 @@ import com.darwinsofttech.school.repository.subject.SubjectRepository;
 import com.darwinsofttech.school.repository.teacher.Teacher;
 import com.darwinsofttech.school.repository.teacher.TeacherRepository;
 import com.darwinsofttech.school.service.exceptions.CustomException;
-import com.darwinsofttech.school.service.student.StudentResponseWithoutScheds;
-import com.darwinsofttech.school.service.subject.SubjectResponseWithoutScheds;
-import com.darwinsofttech.school.service.teacher.TeacherResponseWithoutScheds;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,7 +29,7 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class ScheduleServiceTest {
 
-    private ScheduleRepository scheduleRepository;
+    private ScheduleRepository repository;
     private SubjectRepository subjectRepository;
     private TeacherRepository teacherRepository;
     private StudentRepository studentRepository;
@@ -40,16 +37,16 @@ public class ScheduleServiceTest {
 
     @Before
     public void setUp() {
-        scheduleRepository = mock(ScheduleRepository.class);
+        repository = mock(ScheduleRepository.class);
         subjectRepository = mock(SubjectRepository.class);
         teacherRepository = mock(TeacherRepository.class);
         studentRepository = mock(StudentRepository.class);
-        service = new ScheduleServiceImpl(scheduleRepository, subjectRepository, teacherRepository, studentRepository);
+        service = new ScheduleServiceImpl(repository, subjectRepository, teacherRepository, studentRepository);
     }
 
     @Test
     public void getReport() throws CustomException {
-        when(scheduleRepository.findAll()).thenReturn(getSchedules());
+        when(repository.findAll()).thenReturn(getSchedules());
         Assert.assertNotNull(service.getReport());
 
         try {
@@ -66,17 +63,23 @@ public class ScheduleServiceTest {
     public List<Schedule> getSchedules() {
         List<Schedule> schedules = new ArrayList<>();
 
-        Student student = new Student("StudentL", "StudentF", "StudentM");
+        Student student = new Student("Zaldarriaga", "Darwin", "Dedel");
+        Student student2 = new Student("Lastname", "Firstname", "Middlename");
         List<Student> students = new ArrayList<>();
         students.add(student);
+        students.add(student2);
 
-        Schedule schedule = new Schedule(new Subject("IT 101", "Programming"),
-                new Teacher("TeacherL", "TeacherF", "TeacherM"),
-                "M",
-                "07:00 - 10:00",
-                students);
+        Schedule schedule = new Schedule(
+                new Subject("IT 101", "Programming"),
+                new Teacher("TeachLast", "TeachFirst", "TeachMiddle"),
+                "M", "07:00 - 10:00", students);
         schedules.add(schedule);
+
+        Schedule schedule2 = new Schedule(
+                new Subject("IT 102", "Web Development"),
+                new Teacher("TeachLast", "TeachFirst", "TeachMiddle"),
+                "M", "07:00 - 10:00", students);
+        schedules.add(schedule2);
         return schedules;
     }
-
 }
