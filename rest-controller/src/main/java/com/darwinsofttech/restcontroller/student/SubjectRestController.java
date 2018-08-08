@@ -45,12 +45,7 @@ public class SubjectRestController {
     }
 
     @GetMapping("/getReport")
-    public byte[] getReport() {
-        try {
-            return subjectService.getReport();
-        } catch (CustomException e) {
-            e.printStackTrace();
-        }
-        return null;
+    public byte[] getReport() throws CustomException {
+        return subjectService.getReport();
     }
 }
