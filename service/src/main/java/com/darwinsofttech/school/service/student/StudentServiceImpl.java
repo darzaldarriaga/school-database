@@ -99,7 +99,8 @@ public class StudentServiceImpl implements StudentService {
         List<Student> students = studentRepository.findAll();
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(students);
         try {
-            byte[] pdfReportInBytes = JasperRunManager.runReportToPdf("..\\reports\\student_report.jasper", null, dataSource);
+            byte[] pdfReportInBytes = JasperRunManager.runReportToPdf(
+					"..\\..\\reports\\student_report.jasper", null, dataSource);
             return pdfReportInBytes;
         } catch (JRException e) {
             e.printStackTrace();
